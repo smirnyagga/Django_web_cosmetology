@@ -1,4 +1,4 @@
-# TG_bot_alerts
+# Django_web_cosmetology
 
 Написано на Python с использованием фреймворка Django, базового HTML и CSS
 
