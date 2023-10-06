@@ -1,0 +1,118 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/start.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cosmetology</title>
+    <link rel="shortcut icon" href="{% static 'images/circle-xxs.svg' %}" class="ico">
+</head>
+<body>
+{% block header %}
+  <header class="header">
+    <div class="header-content">
+      <div class="container">
+        <img src="https://netology-code.github.io/html-2-diploma/sources/images/noemi-logo.svg" alt="" class="logo">
+        <nav class="header-menu">
+          <ul class="menu">
+            <li><a href="{% url 'home' %}" class="menu-item">главная</a></li>
+            <li><a href="{% url 'cat_list' %}" class="menu-item">услуги</a></li>
+            <li><a href="#doctors" class="menu-item">врачи</a></li>
+            <li><a href="#contacts" class="menu-item">контакты</a></li>
+            <li><a href="{% url 'question' %}" class="menu-item">вопросы и отзывы</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'home' %}" class="menu-item">{{ user.username }}</a><a href="{% url 'logout' %}" class="menu-item">выход</a></li>
+            {% else %}
+            <li><a href="{% url 'register' %}" class="menu-item">Регистрация</a><a href="{% url 'login' %}" class="menu-item">войти</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+      <h1 class="header-title">клиника эстетической медицины</h1>
+      <div class="down-adress">
+      <ul class="down-menu">
+        <li class="down-menu-item">Москва, ул. Белинского, д. 28, офис 14</li>
+        <li class="down-menu-item">Пн - Сб — 9:00 - 20:00, Вс — вых</li>
+        <li class="down-menu-item">8(950)999-99-99</li>
+        <li class="down-menu-item">
+          <a href="{% url 'application' %}" class="down-menu-item" >Записаться на процедуру</a>
+        </li>
+      </ul>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+  <main class="content">
+    <div class="about-us-title">
+      <h2 class="about-us-title-name">О нас</h2>
+    </div>
+    <div class="about-us-description">
+      <p>Мы команда опытных врачей-косметологов, с 2004 года помогаем решить проблемы красоты и здоровья!
+  На протяжении 14 лет, мы постоянно усовершенствуемся, повышаем квалификацию и применяем в практику только самые современные технологии и оборудование.
+  Мы владеем передовыми, световыми методиками омоложения лица, удаления сосудов, пигментных пятен и веснушек, лечения акне, фотоэпиляции.
+  Мы предлагаем полный спектр процедур по подтяжке кожи лица, тела и коррекции фигуры.</p><br>
+      <p>И на сегодняшний день мы рады предложить Вам новейшие лазерные методы омоложения, удаления шрамов, рубцов, растяжек, папиллом и родинок.
+  За долгие годы упорной и кропотливой работы мы смогли отыскать и освоить уникальные методы решения самых деликатных проблем – специалисты нашего центра успешно проводят процедуры интимной контурной пластики (безоперационного омоложения интимной зоны) и лазерного омоложения интимной зоны.
+  Одно из новых направлений в работе нашего центра – это трихология.
+  Мы предлагаем инновационные технологии по пересадке волос и лечению кожи головы.</p><br>
+      <p>Центр эстетической медицины «Ювентус» - это 14лет успешной работы на рынке косметологических услуг. Это качество, проверенное временем. Залогом нашей успешной работы является тщательно подобранная команда профессионалов и поиск новых методик.
+  САМОЕ ГЛАВНОЕ ПРИЗНАНИЕ ДЛЯ НАС - ПРИЗНАНИЕ НАШИХ КЛИЕНТОВ!
+  МЫ ВСЕГДА ВАМ РАДЫ! ЛЮБИМ, ЦЕНИМ И ЖДЕМ!</p><br>
+    </div>
+
+    <div class="proc-title">
+      <a href="{% url 'cat_list' %}" class="proc-title-name"><h2 class="proc-title-name">Услуги</h2></a>
+    </div>
+
+    <div class="doctors-title">
+      <a name="doctors"><h2 class="doctors-title-name">Наши сотрудники</h2></a>
+    </div>
+    <div class="doctors-description">
+    {% for item in doctors %}
+      <div class="docktor-block">
+        <img src="{{ item.photo.url }}" alt="{{ item.title }}" class="doctor-photo"/>
+        <div class="doctor-name">{{ item.name }}</div>
+      </div>
+    {% endfor %}
+    </div>
+
+    <div class="contacts-title">
+      <a name="contacts"><h2 class="contacts-title-name">Контакты</h2></a>
+    </div>
+    <section class="map">
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d143711.00452234276!2d37.424165615283584!3d55.750086268871854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54b32f4d2e695%3A0x6036fab2caf870bb!2z0JrQu9C40L3QuNC60LAg0KHQvtCy0YDQtdC80LXQvdC90L7QuSDQmtC-0YHQvNC10YLQvtC70L7Qs9C40LggRXRlcm5hbCBCZWF1dHkgQ2xpbmljIHwg0Y3QvdC00L7RgdGE0LXRgNCwLCDRjdC_0LjQu9GP0YbQuNGPINCQ0YDQsdCw0YI!5e0!3m2!1sru!2sar!4v1694610533214!5m2!1sru!2sar" width="1200" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+
+  </main>
+{% endblock %}
+
+{% block footer %}
+  <footer class="footer-block">
+    <ul class="footer-items">
+      <li class="footer-item">
+        <a href="https://instagram.com/smirnyagga?igshid=NTc4MTIwNjQ2YQ=="  class="footer-icon footer-icon-inst">
+          <span class="visually-hidden">instagram</span>
+        </a>
+      </li>
+      <li class="footer-item">
+        <a href="https://wa.me/79503777068"  class="footer-icon footer-icon-wa">
+          <span class="visually-hidden">watsapp</span>
+        </a>
+      </li>
+      <li class="footer-item">
+        <a href="https://t.me/bdjejbd9"  class="footer-icon footer-icon-tg">
+          <span class="visually-hidden">telegram</span>
+        </a>
+      </li>
+    </ul>
+  </footer>
+{% endblock %}
+
+</body>
+</html>

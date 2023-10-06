@@ -1,0 +1,62 @@
+{% extends "procedures/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+{% for q in page_obj %}
+    <div class="block-questions">
+        <div class="question">{{ q.question }}</div>
+        <div class="answer">{{ q.answer }}</div>
+    </div>
+{% endfor %}
+
+
+{% if page_obj.has_other_pages %}
+<nav class="pages-menu">
+    <ul class="list-pages">
+        {% if page_obj.has_previous %}
+        <li class="page-num">
+            <a href="?page= {{ page_obj.previous_page_number }}">⟵</a>
+        </li>
+        {% endif %}
+
+        {% for p in paginator.page_range %}
+        {% if page_obj.number == p %}
+        <li class="page-num page-num-selected">{{ p }}</li>
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+        <li class="page-num">
+            <a href="?page={{ p }}">{{ p }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-num">
+            <a href="?page= {{ page_obj.next_page_number }}">⟶</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+
+<form method="POST" class="call-form">
+    {% csrf_token %}
+
+    <div class="form-error">{{ form.non_field_errors }}</div>
+
+    {% for f in form %}
+
+    <p class="form-row"><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>
+        <p>{{ f }}</p>
+    </p>
+    <div class="form-error">{{ f.errors }}</div>
+
+    {% endfor %}
+
+    <button type="submit" class="submit_button">Задать вопрос</button>
+</form>
+
+
+{% endblock %}

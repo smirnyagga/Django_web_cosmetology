@@ -1,0 +1,18 @@
+{% extends "procedures/base.html" %}
+
+{% load static %}
+
+<!--{% load cache %}-->
+{% block content %}
+<!--{% cache 60 list_cat %}-->
+    <div class="list-categories">
+        {% for item in categories %}
+            <div class="one-category">
+                <a href="{{ item.get_absolute_url }}" class="category-name"><h2>{{ item.title }}</h2></a>
+                <a href="{{ item.get_absolute_url }}"><img src="{{ item.photo.url }}" class="category-photo" alt="{{ item.title }}"/></a>
+            </div>
+        {% endfor %}
+    </div>
+<!--{% endcache%}-->
+{% endblock %}
+

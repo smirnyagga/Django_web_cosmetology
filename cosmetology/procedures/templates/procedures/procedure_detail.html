@@ -1,0 +1,28 @@
+{% extends "procedures/base.html" %}
+
+{% load static %}
+
+{% block content %}
+  <section class="news">
+    <article class="post">
+      <img src="{{ proc.photo.url }}" alt="{{ proc.photo }}"  class="post-pic">
+      <div class="post-text">
+        <ul class="post-categorys">
+          <li class="post-category">Продолжительность: {{ proc.time }}</li>
+          <li class="post-category">Стоимость: {{ proc.price }} ₽</li>
+        </ul>
+        <h2 class="post-title">{{ proc.title }}</h2>
+        <p class="post-desc">{{ proc.description|linebreaks }}</p>
+      </div>
+    </article>
+
+    <div class="results-title">
+      <h2 class="results-title-name">Результаты</h2>
+    </div>
+    <div class="result-description">{{ proc.results|linebreaksbr }}</div>
+
+
+  </section>
+{% endblock %}
+
+
